@@ -17,6 +17,7 @@ import com.toedter.calendar.JDateChooser;
 
 import connectDB.Database;
 import connectDB.testDatabase;
+import util.GetLocalTime;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -439,6 +440,9 @@ public class BangChamCong_chitiet_sua extends JFrame {
 		
 		//Code tay
 		tableModel = (DefaultTableModel) tblBangChamCong.getModel();
+		GetLocalTime getLocalTime = new GetLocalTime(lblDate, lblTime);
+		getLocalTime.showTime();
+		getLocalTime.showDate();
 	}
 	public static void loadDuLieuCanSua(String macn, String tencn, String masp, String sl, String dg, String ncc, String mapx) {
 		tableModel.addRow(new Object[] {

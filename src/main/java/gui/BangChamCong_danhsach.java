@@ -21,6 +21,7 @@ import javax.swing.table.TableRowSorter;
 
 import connectDB.Database;
 import connectDB.testDatabase;
+import util.GetLocalTime;
 
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -33,6 +34,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
 
 public class BangChamCong_danhsach extends JFrame {
 
@@ -126,7 +128,7 @@ public class BangChamCong_danhsach extends JFrame {
 		scrollPane.setViewportView(tblBangChamCong);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "JPanel title", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Th\u1EDDi gian:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 128, 0)));
 		panel.setBounds(148, 399, 117, 56);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -163,6 +165,9 @@ public class BangChamCong_danhsach extends JFrame {
 		
 		//Codey tay
 		loadDataFromCSDL();
+		GetLocalTime getLocalTime = new GetLocalTime(lblDate, lblTime);
+		getLocalTime.showTime();
+		getLocalTime.showDate();
 	}
 
 	private void loadDataFromCSDL() {

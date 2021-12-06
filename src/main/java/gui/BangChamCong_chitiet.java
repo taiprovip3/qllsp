@@ -26,6 +26,7 @@ import javax.swing.table.TableRowSorter;
 
 import connectDB.Database;
 import connectDB.testDatabase;
+import util.GetLocalTime;
 
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -85,9 +86,8 @@ public class BangChamCong_chitiet extends JFrame {
 		panel_3.add(btnQuayLai);
 		btnQuayLai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TrangChu trangChu = new TrangChu();
-				trangChu.main(null);
 				dispose();
+				TrangChu.main("admin");
 			}
 		});
 		btnQuayLai.setBackground(new Color(0, 100, 0));
@@ -95,7 +95,7 @@ public class BangChamCong_chitiet extends JFrame {
 		btnQuayLai.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Th\u1EDDi gian:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Th\u1EDDi gian:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 128, 0)));
 		panel.setBounds(727, 360, 112, 63);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -315,6 +315,9 @@ public class BangChamCong_chitiet extends JFrame {
 		
 		//Code tay
 		loadDataFromCSDL();
+		GetLocalTime getLocalTime = new GetLocalTime(lblDate, lblTime);
+		getLocalTime.showTime();
+		getLocalTime.showDate();
 	}
 
 	private void loadDataFromCSDL() {

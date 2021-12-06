@@ -17,6 +17,7 @@ import com.toedter.calendar.JDateChooser;
 
 import connectDB.Database;
 import connectDB.testDatabase;
+import util.GetLocalTime;
 
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
@@ -318,7 +319,7 @@ public class BangChamCong_chitiet_them extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
-		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Th\u1EDDi gian:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Th\u1EDDi gian:", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
 		panel.setBounds(723, 0, 112, 63);
 		contentPane.add(panel);
 		
@@ -370,6 +371,11 @@ public class BangChamCong_chitiet_them extends JFrame {
 		txtMaSanPham.setColumns(10);
 		txtMaSanPham.setBounds(208, 131, 265, 28);
 		contentPane.add(txtMaSanPham);
+		
+		//Codey tay
+		GetLocalTime getLocalTime = new GetLocalTime(lblDate, lblTime);
+		getLocalTime.showTime();
+		getLocalTime.showDate();
 	}
 	private void xoaRong() {
 		txtMa.setText("");

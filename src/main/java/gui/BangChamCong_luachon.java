@@ -12,6 +12,9 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.border.TitledBorder;
+
+import util.GetLocalTime;
+
 import javax.swing.border.EtchedBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -121,5 +124,10 @@ public class BangChamCong_luachon extends JFrame {
 		lblNewLabel.setFont(new Font("Times New Roman", Font.ITALIC, 17));
 		lblNewLabel.setBounds(20, 74, 393, 20);
 		contentPane.add(lblNewLabel);
+		
+		//Code tay
+		GetLocalTime getLocalTime = new GetLocalTime(lblDate, lblTime);
+		getLocalTime.showTime();
+		getLocalTime.showDate();
 	}
 }

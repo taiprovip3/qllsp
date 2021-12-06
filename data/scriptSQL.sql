@@ -118,6 +118,47 @@ insert into CongNhan values ('CN7',N'Nguyễn Văn G',1993,'Nam','2019-05-03','0
 insert into CongNhan values ('CN8',N'Nguyễn Văn H',1992,'Nam','2019-05-03','0338188507',8,'PX8');
 insert into CongNhan values ('CN9',N'Nguyễn Văn I',1991,'Nam','2019-05-03','0338188508',9,'PX9');
 insert into CongNhan values ('CN10',N'Nguyễn Văn J',1990,'Nam','2019-05-03','0338188509',10,'PX10');
+--PhongBan table
+create table PhongBan(
+	maPhongBan varchar(255) PRIMARY KEY,
+	nghiepVu nvarchar(255),
+	nguoiDaiDien nvarchar(255),
+	viTri nvarchar(255),
+	soLuongNhanVien int,
+	stt int
+);
+insert into PhongBan values ('PB1',N'Phòng kế toán','Lê Văn A','Z0.1',5,1);
+insert into PhongBan values ('PB2',N'Phòng hành chính','Lê Văn B','Z0.2',5,2);
+insert into PhongBan values ('PB3',N'Phòng kiểm toán','Lê Văn C','Z0.3',5,3);
+insert into PhongBan values ('PB4',N'Phòng CSKH','Lê Văn D','Z0.4',5,4);
+insert into PhongBan values ('PB5',N'Phòng nhân sự','Lê Văn E','Z0.5',5,5);
+insert into PhongBan values ('PB6',N'Phòng CNTT','Lê Văn F','Z0.6',5,6);
+insert into PhongBan values ('PB7',N'Phòng marketing','Lê Văn G','Z0.7',5,7);
+insert into PhongBan values ('PB8',N'Phòng nghiên cứu & Phát triển SP','Lê Văn H','Z0.8',5,8);
+insert into PhongBan values ('PB9',N'Phòng kinh doanh','Lê Văn I','Z0.9',5,9);
+insert into PhongBan values ('PB10',N'Phòng thu mua','Lê Văn J','Z0.10',5,10);
+--NhanVienHanhChinht table
+create table NhanVienHanhChinh(
+	maNhanVien varchar(255),
+	tenNhanVien NVARCHAR(255),
+	namSinh int,
+	gioiTinh nvarchar(255),
+	ngayKhoiCong date,
+	SDT varchar(255),
+	stt int,
+
+	maPhongBan varchar(255) foreign key references PhongBan(maPhongBan)
+);
+insert into NhanVienHanhChinh values ('NV1',N'Lê Văn A',1996,N'Nam','2016-12-02','03381885061',1,'PB1');
+insert into NhanVienHanhChinh values ('NV2',N'Lê Văn B',1995,N'Nam','2016-11-02','03381885062',2,'PB2');
+insert into NhanVienHanhChinh values ('NV3',N'Lê Văn C',1994,N'Nữ','2016-10-02','03381885063',3,'PB3');
+insert into NhanVienHanhChinh values ('NV4',N'Lê Văn D',1993,N'Nam','2016-09-02','03381885064',4,'PB4');
+insert into NhanVienHanhChinh values ('NV5',N'Lê Văn E',1992,N'Nam','2016-08-02','03381885065',5,'PB5');
+insert into NhanVienHanhChinh values ('NV6',N'Lê Văn F',1991,N'Nữ','2016-07-02','03381885066',6,'PB6');
+insert into NhanVienHanhChinh values ('NV7',N'Lê Văn G',1990,N'Nam','2016-06-02','03381885067',7,'PB7');
+insert into NhanVienHanhChinh values ('NV8',N'Lê Văn H',1989,N'Nam','2016-05-02','03381885068',8,'PB8');
+insert into NhanVienHanhChinh values ('NV9',N'Lê Văn I',1988,N'Nữ','2016-04-02','03381885069',9,'PB9');
+insert into NhanVienHanhChinh values ('NV10',N'Lê Văn J',1987,N'Nam','2016-03-02','033818850610',10,'PB10');
 --DonXinNghi table    select count(maNhanVien) from DonXinNghi where maNhanVien = 'CN1' and MONTH(ngayNghi) = 12;
 create table DonXinNghi(
 	maDonNghi varchar(255) PRIMARY KEY,
@@ -135,7 +176,18 @@ insert into DonXinNghi values ('DN3','CN3',N'Nguyễn Văn C',N'Công nhân',N'B
 insert into DonXinNghi values ('DN4','CN4',N'Nguyễn Văn D',N'Công nhân',N'Bệnh','2021-12-02',N'Có phép',4);
 insert into DonXinNghi values ('DN5','CN5',N'Nguyễn Văn E',N'Công nhân',N'Bệnh','2021-12-02',N'Không phép',5);
 insert into DonXinNghi values ('DN6','NV1',N'Lê Văn A',N'Nhân viên',N'Bệnh','2021-12-02',N'Không phép',6);
-insert into DonXinNghi values ('DN7','NV2',N'Lê Văn A',N'Nhân viên',N'Bệnh','2021-12-02',N'Có phép',7);
-insert into DonXinNghi values ('DN8','NV3',N'Lê Văn A',N'Nhân viên',N'Bệnh','2021-12-02',N'Không phép',8);
-insert into DonXinNghi values ('DN9','NV4',N'Lê Văn A',N'Nhân viên',N'Bệnh','2021-12-02',N'Có phép',9);
-insert into DonXinNghi values ('DN10','NV5',N'Lê Văn A',N'Nhân viên',N'Bệnh','2021-12-02',N'Không phép',10);
+insert into DonXinNghi values ('DN7','NV2',N'Lê Văn B',N'Nhân viên',N'Bệnh','2021-12-02',N'Có phép',7);
+insert into DonXinNghi values ('DN8','NV3',N'Lê Văn C',N'Nhân viên',N'Bệnh','2021-12-02',N'Không phép',8);
+insert into DonXinNghi values ('DN9','NV4',N'Lê Văn D',N'Nhân viên',N'Bệnh','2021-12-02',N'Có phép',9);
+insert into DonXinNghi values ('DN10','NV5',N'Lê Văn E',N'Nhân viên',N'Bệnh','2021-12-02',N'Không phép',10);
+--Staff table   select * from NguoiDUng
+create table NguoiDung(
+	tenDangNhap varchar(255),
+	matKhau varchar(255),
+	maNguoiDung nvarchar(255) PRIMARY KEY,
+	tenNguoiDung nvarchar(255),
+	phanQuyen varchar(255),
+	thoiGianHoatDong int
+);
+insert into NguoiDung values ('admin','1','SUPER_ADMIN_01',N'PHAN TẤN TÀI','admin',0);
+insert into NguoiDung values ('phantantai','087663az','SUPER_VISOR_02',N'NGUYỄN TRỌNG ĐẠT','user',1);
