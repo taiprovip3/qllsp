@@ -36,6 +36,7 @@ public class DangNhap extends JFrame {
 	private JPasswordField txtMatKhau;
 	private static JButton btnLogin;
 	private JCheckBox chkHienPassword;
+	private JButton btnQunPass;
 
 	/**
 	 * Launch the application.
@@ -100,7 +101,6 @@ public class DangNhap extends JFrame {
 		            		JOptionPane.showMessageDialog(contentPane, "Sai mật khẩu!");
 	            		}
 		            }
-		        conn.close();
 		        } catch (SQLException ex) {
 		            Logger.getLogger(testDatabase.class.getName()).log(Level.SEVERE, null, ex);
 		        }
@@ -115,7 +115,7 @@ public class DangNhap extends JFrame {
 		txtTenDangNhap = new JTextField();
 		txtTenDangNhap.setForeground(new Color(220, 20, 60));
 		txtTenDangNhap.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		txtTenDangNhap.setBounds(26, 69, 290, 33);
+		txtTenDangNhap.setBounds(26, 69, 295, 33);
 		contentPane.add(txtTenDangNhap);
 		txtTenDangNhap.setColumns(10);
 		
@@ -125,7 +125,7 @@ public class DangNhap extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		txtMatKhau = new JPasswordField();
-		txtMatKhau.setBounds(26, 122, 290, 33);
+		txtMatKhau.setBounds(26, 122, 295, 33);
 		contentPane.add(txtMatKhau);
 		
 		JLabel lblDate = new JLabel("New label");
@@ -156,11 +156,24 @@ public class DangNhap extends JFrame {
 			}
 		});
 		chkHienPassword.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		chkHienPassword.setBounds(167, 167, 145, 23);
+		chkHienPassword.setBounds(148, 200, 145, 23);
 		contentPane.add(chkHienPassword);
 		
 		//Code tay
 		GetLocalTime getLocalTime = new GetLocalTime(lblDate, lblTime);
+		
+		btnQunPass = new JButton("Quên pass ?");
+		btnQunPass.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				QuenMatKhau.main(null);
+			}
+		});
+		btnQunPass.setForeground(Color.RED);
+		btnQunPass.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		btnQunPass.setBackground(Color.WHITE);
+		btnQunPass.setBounds(214, 160, 107, 33);
+		contentPane.add(btnQunPass);
 		getLocalTime.showTime();
 		getLocalTime.showDate();
 	}

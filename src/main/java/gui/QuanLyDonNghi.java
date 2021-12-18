@@ -1,3 +1,4 @@
+
 package gui;
 
 import java.awt.BorderLayout;
@@ -36,6 +37,7 @@ import javax.swing.table.TableRowSorter;
 import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.ImageIcon;
@@ -47,6 +49,11 @@ import util.GetLocalTime;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
@@ -70,11 +77,11 @@ public class QuanLyDonNghi extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(final String un) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frame = new QuanLyDonNghi();
+					frame = new QuanLyDonNghi(un);
 					frame.setVisible(true);
 					frame.setExtendedState(MAXIMIZED_BOTH);
 				} catch (Exception e) {
@@ -87,7 +94,7 @@ public class QuanLyDonNghi extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public QuanLyDonNghi() {
+	public QuanLyDonNghi(final String un) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1398, 784);
 		contentPane = new JPanel();
@@ -129,12 +136,24 @@ public class QuanLyDonNghi extends JFrame {
 		));
 		scrollPane.setViewportView(tblDonNghi);
 		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\home.png"));
-		btnNewButton.setBounds(10, 11, 77, 76);
-		contentPane.add(btnNewButton);
+		JButton btnTrangChu = new JButton("");
+		btnTrangChu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				TrangChu.main(un);
+			}
+		});
+		btnTrangChu.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\home.png"));
+		btnTrangChu.setBounds(10, 11, 77, 76);
+		contentPane.add(btnTrangChu);
 		
 		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				QuanLyBangChamCong.main(un);
+			}
+		});
 		btnNewButton_1.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\bcc.png"));
 		btnNewButton_1.setBounds(116, 11, 77, 76);
 		contentPane.add(btnNewButton_1);
@@ -201,6 +220,7 @@ public class QuanLyDonNghi extends JFrame {
 		contentPane.add(lblNewLabel_2);
 		
 		txtMaDN = new JTextField();
+		txtMaDN.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		txtMaDN.setEditable(false);
 		txtMaDN.setBounds(116, 136, 247, 30);
 		contentPane.add(txtMaDN);
@@ -212,6 +232,7 @@ public class QuanLyDonNghi extends JFrame {
 		contentPane.add(lblNewLabel_2_1);
 		
 		txtTenNV = new JTextField();
+		txtTenNV.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		txtTenNV.setColumns(10);
 		txtTenNV.setBounds(494, 136, 253, 30);
 		contentPane.add(txtTenNV);
@@ -300,7 +321,7 @@ public class QuanLyDonNghi extends JFrame {
 		            int cf = JOptionPane.showConfirmDialog(contentPane, "Thêm thành công, vui lòng tải lại bảng!");
 		            if(cf == JOptionPane.YES_OPTION)
 					{
-						taiLai();
+						taiLai(un);
 						dispose();
 					}
 		        } catch (SQLException ex) {
@@ -350,7 +371,7 @@ public class QuanLyDonNghi extends JFrame {
 				            int cf = JOptionPane.showConfirmDialog(contentPane, "Sửa thành công, vui lòng tải lại bảng!");
 				            if(cf == JOptionPane.YES_OPTION)
 							{
-								taiLai();
+								taiLai(un);
 								dispose();
 							}
 				        } catch (SQLException ex) {
@@ -377,6 +398,8 @@ public class QuanLyDonNghi extends JFrame {
 				cbLyDo.setSelectedIndex(0);
 				cbLoaiNghi.setSelectedIndex(0);
 				txtSearch.setText("");
+				DefaultTableModel tableModel = (DefaultTableModel) tblDonNghi.getModel();
+				tableModel.setRowCount(0);
 			}
 		});
 		btnXoaRong.setForeground(new Color(60, 179, 113));
@@ -466,6 +489,35 @@ public class QuanLyDonNghi extends JFrame {
 		contentPane.add(btnSearch);
 		
 		JButton btnIn = new JButton("In b\u1EA3ng .txt");
+		btnIn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int a = tblDonNghi.getSelectedRow();
+				if(a != -1) {
+					try {
+						DefaultTableModel tableModelDN = (DefaultTableModel) tblDonNghi.getModel();
+						Date date =new Date();
+						String d =new SimpleDateFormat("dd_MM_yyyy").format(date);
+						File file = new File("data/DonNghi_"+d);
+						if(!file.exists())
+							file.createNewFile();
+						FileWriter fw = new FileWriter(file.getAbsoluteFile());
+						BufferedWriter bw= new BufferedWriter(fw);
+						bw.write("MÃ ĐƠN NGHĨ | MÃ NV | HỌ VÀ TÊN | LOẠI NV | NGÀY NGHĨ | LÝ DO | LOẠI NGHĨ\n");
+						for (int i = 0; i < tblDonNghi.getRowCount(); i++) {
+							for (int j = 0; j < tblDonNghi.getColumnCount(); j++)
+								bw.write(tableModelDN.getValueAt(i, j).toString()+" \t\t ");
+							bw.write("\n");
+						}
+						bw.close();
+						fw.close();
+						JOptionPane.showMessageDialog(contentPane, "Xuất file .txt thành công");
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					}
+				} else
+					JOptionPane.showMessageDialog(contentPane, "Vui lòng chọn bảng cần export");
+			}
+		});
 		btnIn.setForeground(new Color(60, 179, 113));
 		btnIn.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		btnIn.setBounds(602, 336, 138, 37);
@@ -478,10 +530,36 @@ public class QuanLyDonNghi extends JFrame {
 		contentPane.add(lblCit_1);
 		
 		dcNgayNghi = new JDateChooser();
+		dcNgayNghi.setDateFormatString("dd/MM/yyyy");
 		dcNgayNghi.setBounds(837, 134, 234, 30);
 		contentPane.add(dcNgayNghi);
 		
 		JButton btnScript = new JButton("\u0110\u1ED5 d\u1EEF li\u1EC7u = script");
+		btnScript.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				StringBuilder stringBuilder = new StringBuilder();
+				if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+					try {
+						Connection conn = Database.getConnection();
+						Statement stmt = null;
+						File file = fileChooser.getSelectedFile();
+						BufferedReader br = new BufferedReader(new FileReader(file));
+						String line;
+						while((line = br.readLine()) != null) {
+				            stmt = conn.createStatement();
+				            stmt.execute(line);
+						}
+						int cf= JOptionPane.showConfirmDialog(contentPane, "Đổ dữ liệu thành công, tải lại?");
+						if(cf==JOptionPane.YES_OPTION)
+							QuanLyDonNghi.taiLai(un);
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					}
+				} else
+					stringBuilder.append("No file selected");
+			}
+		});
 		btnScript.setForeground(new Color(60, 179, 113));
 		btnScript.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		btnScript.setBounds(10, 288, 286, 37);
@@ -521,9 +599,9 @@ public class QuanLyDonNghi extends JFrame {
             Logger.getLogger(testDatabase.class.getName()).log(Level.SEVERE, null, ex);
         }
 	}
-	public static void taiLai() {
+	public static void taiLai(String un) {
 		SwingUtilities.updateComponentTreeUI(frame);
 		frame.dispose();
-		main(null);
+		main(un);
 	}
 }

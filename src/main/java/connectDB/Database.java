@@ -10,7 +10,7 @@ public class Database {
     public static Connection getConnection()
     {
         Connection conn = null;
-        try {
+        try {	
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             conn = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=qllsp","sa","sapassword");
             System.out.println("Kết nối với CSDL thành công!");

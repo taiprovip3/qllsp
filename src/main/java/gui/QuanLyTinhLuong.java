@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.border.TitledBorder;
@@ -21,6 +22,10 @@ import javax.swing.JTextField;
 import javax.swing.RowFilter;
 
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,6 +33,7 @@ import java.sql.Statement;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,11 +57,11 @@ public class QuanLyTinhLuong extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(final String un) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					QuanLyTinhLuong frame = new QuanLyTinhLuong();
+					QuanLyTinhLuong frame = new QuanLyTinhLuong(un);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -67,7 +73,7 @@ public class QuanLyTinhLuong extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public QuanLyTinhLuong() {
+	public QuanLyTinhLuong(final String un) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1055, 728);
 		contentPane = new JPanel();
@@ -127,41 +133,79 @@ public class QuanLyTinhLuong extends JFrame {
 				String month =cbMonth.getSelectedItem().toString();
 				Locale locale = new Locale("vi", "VN");
 				NumberFormat numberFormat= NumberFormat.getCurrencyInstance(locale);
-				if(entity.equals("C�ng nh�n")) {
-					Connection conn = Database.getConnection();
-			        Statement stmt0 = null;
-			        Statement stmt1 = null;
-			        try {
-			            stmt0 = conn.createStatement();
-			            String query0 = "select * from congnhan";
-			            ResultSet rs0 = stmt0.executeQuery(query0);
-			            while(rs0.next()){
-			            	String maCongNhan = rs0.getString("maCongNhan");//ma
-			            	stmt1 = conn.createStatement();
-			            	String query1 = "select sum(soLuong),sum(soLuong*donGia) from BangChamCong where maCongNhan = '"+maCongNhan+"' and MONTH(ngayChamCong) = "+month+"";
-			            	ResultSet rs1 = stmt1.executeQuery(query1);
-			            	rs1.next();
-			            	int soLuongSanPham = rs1.getInt(1);//soLuong
-			            	float tienSanPham =rs1.getFloat(2);//tienSP
-			            	query1= "select count(maNhanVien) from DonXinNghi where maNhanVien = '"+maCongNhan+"' and MONTH(ngayNghi) = "+month+"";
-			            	rs1=stmt1.executeQuery(query1);
-			            	rs1.next();
-			            	int soNgayNghi = rs1.getInt(1);//ngayNghi
-			            	float phatSinh = (float) soNgayNghi*10000;//phatSinh
-			            	Date d = new Date();
-			            	String ngayIn = new SimpleDateFormat("dd/MM/yyyy").format(d);//ngayIn
-			            	float tongNhan = tienSanPham - phatSinh;
-			            	
-			            	DefaultTableModel tableModelCN = (DefaultTableModel) tblCongNhan.getModel();
-			            	tableModelCN.addRow(new Object[] {
-			            		month,rs0.getString("maCongNhan"),rs0.getString("tenCongNhan"), soLuongSanPham,tienSanPham,0,soNgayNghi,phatSinh,ngayIn,numberFormat.format(tongNhan)
-			            	});
-			            }
-			        } catch (SQLException ex) {
-			            Logger.getLogger(testDatabase.class.getName()).log(Level.SEVERE, null, ex);
-			        }
-				}
-			}
+				Connection conn = Database.getConnection();
+					if(entity.equals("Công nhân")) {
+				        Statement stmt0 = null;
+				        Statement stmt1 = null;
+				        try {
+				            stmt0 = conn.createStatement();
+				            String query0 = "select * from CongNhan";
+				            ResultSet rs0 = stmt0.executeQuery(query0);
+				            while(rs0.next()){
+				            	String maCongNhan = rs0.getString("maCongNhan");//ma
+				            	stmt1 = conn.createStatement();
+				            	String query1 = "select sum(soLuong),sum(soLuong*donGia) from BangChamCong where maCongNhan = '"+maCongNhan+"' and MONTH(ngayChamCong) = "+month+"";
+				            	ResultSet rs1 = stmt1.executeQuery(query1);
+				            	rs1.next();
+				            	int soLuongSanPham = rs1.getInt(1);//soLuong
+				            	float tienSanPham =rs1.getFloat(2);//tienSP
+				            	query1= "select count(maNhanVien) from DonXinNghi where maNhanVien = '"+maCongNhan+"' and MONTH(ngayNghi) = "+month+"";
+				            	rs1=stmt1.executeQuery(query1);
+				            	rs1.next();
+				            	int soNgayNghi = rs1.getInt(1);//ngayNghi
+				            	float phatSinh = (float) soNgayNghi*10000;//phatSinh
+				            	Date d = new Date();
+				            	String ngayIn = new SimpleDateFormat("dd/MM/yyyy").format(d);//ngayIn
+				            	float tongNhan = tienSanPham - phatSinh;
+				            	
+				            	DefaultTableModel tableModelCN = (DefaultTableModel) tblCongNhan.getModel();
+				            	tableModelCN.addRow(new Object[] {
+				            		month,rs0.getString("maCongNhan"),rs0.getString("tenCongNhan"), soLuongSanPham,tienSanPham,0,soNgayNghi,phatSinh,ngayIn,numberFormat.format(tongNhan)
+				            	});
+				            }
+				        } catch (SQLException ex) {
+				            Logger.getLogger(testDatabase.class.getName()).log(Level.SEVERE, null, ex);
+				        }
+					}else {
+						try {
+							Statement stmt1 = conn.createStatement();
+							String sql1 = "select * from NhanVienHanhChinh";
+							ResultSet rs1 = stmt1.executeQuery(sql1);
+							while(rs1.next()) {
+								String maNhanVien = rs1.getString("maNhanVien");//ma
+								String tenNhanVien = rs1.getString("tenNhanVien");//ten
+								String maPhongBan = rs1.getString("maPhongBan");//pb
+								
+								Statement stmt2 = conn.createStatement();
+								String sql2 = "select count(maNhanVien) from DonXinNghi where maNhanVien = '"+maNhanVien+"' and MONTH(ngayNghi) = "+month+"";
+								ResultSet rs2 = stmt2.executeQuery(sql2);
+								rs2.next();
+								int soNgayNghi = rs2.getInt(1);//ngayNghi
+								int soNgayCong = 26 - soNgayNghi;//ngayCong
+								float tyGia = (float) soNgayCong / (float)26;
+								float tienLuong = 7000000 * tyGia;//tienLuong
+								
+								Statement stmt3 = conn.createStatement();
+								String sql3 = "select sum(soGioTangCa),sum(28000*soGioTangCa*bonusCa) from BangTangCa where maNhanVien = '"+maNhanVien+"'";
+								ResultSet rs3 = stmt3.executeQuery(sql3);
+								rs3.next();
+								float soGioTangCa = rs3.getFloat(1);//gioTangCa
+								float tienTangCa = rs3.getFloat(2);//tienTangCa
+								Date d = new Date();
+				            	String ngayIn = new SimpleDateFormat("dd/MM/yyyy").format(d);//ngayIn
+								
+				            	float tongNhan=tienLuong+tienTangCa;
+				            	
+								DefaultTableModel tableModelNV = (DefaultTableModel) tblNhanVien.getModel();
+				            	tableModelNV.addRow(new Object[] {
+				            		month,maNhanVien,tenNhanVien,maPhongBan,soNgayCong,numberFormat.format(tienLuong),soGioTangCa,tienTangCa,0,soNgayNghi,0,ngayIn,numberFormat.format(tienLuong)
+				            	});
+							}
+						} catch (Exception e2) {
+							e2.printStackTrace();
+						}
+					}//end Else
+			}//End button
 		});
 		btnStart.setBackground(new Color(85, 107, 47));
 		btnStart.setForeground(new Color(50, 205, 50));
@@ -207,11 +251,60 @@ public class QuanLyTinhLuong extends JFrame {
 		btnSearch.setForeground(new Color(50, 205, 50));
 		btnSearch.setBackground(new Color(0, 128, 128));
 		
-		JButton btnNewButton_2 = new JButton("Ghi file .txt");
-		btnNewButton_2.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		btnNewButton_2.setForeground(new Color(0, 0, 0));
-		btnNewButton_2.setBounds(10, 637, 124, 41);
-		contentPane.add(btnNewButton_2);
+		JButton btnIn = new JButton("Ghi file .txt");
+		btnIn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int a = tblCongNhan.getSelectedRow();
+				int b = tblNhanVien.getSelectedRow();
+				if(a != -1 && b == -1) {
+					try {
+						DefaultTableModel tableModelCN = (DefaultTableModel) tblCongNhan.getModel();
+						File file = new File("data/PhieuLuongCongNhan");
+						if(!file.exists())
+							file.createNewFile();
+						FileWriter fw = new FileWriter(file.getAbsoluteFile());
+						BufferedWriter bw= new BufferedWriter(fw);
+						bw.write("THÁNG LƯƠNG | MÃ CN | HỌ TÊN | SỐ LƯỢNG SP | TIỀN SP | PHỤ CẤP | NGÀY NGHỈ | CPPS | NGÀY IN | TỔNG NHẬN\n");
+						for (int i = 0; i < tblCongNhan.getRowCount(); i++) {
+							for (int j = 0; j < tblCongNhan.getColumnCount(); j++)
+								bw.write(tableModelCN.getValueAt(i, j).toString()+" \t\t ");
+							bw.write("\n");
+						}
+						bw.close();
+						fw.close();
+						JOptionPane.showMessageDialog(contentPane, "Xuất file .txt thành công");
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					}
+				}else
+					if(b != -1 && a == -1) {
+						try {
+							DefaultTableModel tableModelNV = (DefaultTableModel) tblNhanVien.getModel();
+							File file = new File("data/PhieuLuongNhanVien");
+							if(!file.exists())
+								file.createNewFile();
+							FileWriter fw = new FileWriter(file.getAbsoluteFile());
+							BufferedWriter bw= new BufferedWriter(fw);
+							bw.write("THÁNG LƯƠNG | MÃ NV | HỌ TÊN | P.BAN | NGÀY CÔNG | TIỀN LƯƠN | GIỜ T.CA | TIỀN T.CA | PHỤ CẤP | NGÀY NGHỈ | CPPS | NGÀY IN | TỔNG NHẬN\n");
+							for (int i = 0; i < tblNhanVien.getRowCount(); i++) {
+								for (int j = 0; j < tblNhanVien.getColumnCount(); j++)
+									bw.write(tableModelNV.getValueAt(i, j).toString()+" \t\t ");
+								bw.write("\n");
+							}
+							bw.close();
+							fw.close();
+							JOptionPane.showMessageDialog(contentPane, "Xuất file .txt thành công!");
+						} catch (Exception e2) {
+							e2.printStackTrace();
+						}
+					} else
+						JOptionPane.showMessageDialog(contentPane, "Vui lòng chỉ chọn 1 bảng muốn export!");
+			}
+		});
+		btnIn.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		btnIn.setForeground(new Color(0, 0, 0));
+		btnIn.setBounds(10, 637, 124, 41);
+		contentPane.add(btnIn);
 		
 		JButton btnNewButton_2_1 = new JButton("X\u00F3a r\u1ED7ng table");
 		btnNewButton_2_1.addActionListener(new ActionListener() {
@@ -254,7 +347,7 @@ public class QuanLyTinhLuong extends JFrame {
 		JButton btnQuayLai = new JButton("Quay l\u1EA1i");
 		btnQuayLai.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TrangChu.main(null);
+				TrangChu.main(un);
 				dispose();
 			}
 		});

@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -29,12 +31,16 @@ import connectDB.testDatabase;
 import util.GetLocalTime;
 
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.awt.event.ActionEvent;
@@ -308,6 +314,27 @@ public class BangChamCong_chitiet extends JFrame {
 		btnNewButton.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				StringBuilder stringBuilder = new StringBuilder();
+				if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+					try {
+						Connection conn = Database.getConnection();
+						Statement stmt = null;
+						File file = fileChooser.getSelectedFile();
+						BufferedReader br = new BufferedReader(new FileReader(file));
+						String line;
+						while((line = br.readLine()) != null) {
+				            stmt = conn.createStatement();
+				            stmt.execute(line);
+						}
+						int cf= JOptionPane.showConfirmDialog(contentPane, "Đổ dữ liệu thành công, tải lại?");
+						if(cf==JOptionPane.YES_OPTION)
+							BangChamCong_chitiet.taiLai(maPXPre);
+					} catch (Exception e2) {
+						e2.printStackTrace();
+					}
+				} else
+					stringBuilder.append("No file selected");
 			}
 		});
 		btnNewButton.setBounds(10, 333, 245, 29);

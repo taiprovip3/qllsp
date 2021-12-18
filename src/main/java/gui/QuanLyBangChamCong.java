@@ -13,6 +13,9 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.border.TitledBorder;
+
+import util.GetLocalTime;
+
 import javax.swing.border.EtchedBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -24,11 +27,11 @@ public class QuanLyBangChamCong extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(final String un) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					QuanLyBangChamCong frame = new QuanLyBangChamCong();
+					QuanLyBangChamCong frame = new QuanLyBangChamCong(un);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,7 +43,7 @@ public class QuanLyBangChamCong extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public QuanLyBangChamCong() {
+	public QuanLyBangChamCong(final String un) {
 		setAutoRequestFocus(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 524, 360);
@@ -115,7 +118,7 @@ public class QuanLyBangChamCong extends JFrame {
 		JButton btnNewButton_2 = new JButton("Quay l\u1EA1i");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TrangChu.main(null);
+				TrangChu.main(un);
 				dispose();
 			}
 		});
@@ -124,6 +127,11 @@ public class QuanLyBangChamCong extends JFrame {
 		btnNewButton_2.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		btnNewButton_2.setBounds(396, 276, 102, 34);
 		contentPane.add(btnNewButton_2);
+		
+		//Code tay
+		GetLocalTime getLocalTime = new GetLocalTime(lblDate, lblTime);
+		getLocalTime.showTime();
+		getLocalTime.showDate();
 	}
 
 }

@@ -9,19 +9,19 @@ create table BangChamCong(
 	maSanPham varchar(255),
 	soLuong int,
 	donGia float,
-	ngayChamCong DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP UNIQUE,
+	ngayChamCong DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	maPhanXuong varchar(255)
 );
-insert into BangChamCong values ('CN1','Nguyễn Văn A','SP1',10,25000,'2020-12-05 15:06:25.347','PX1');
-insert into BangChamCong values ('CN2','Nguyễn Văn A2','SP2',10,24000,'2020-12-05 15:06:25.348','PX1');
-insert into BangChamCong values ('CN3','Nguyễn Văn A3','SP3',10,23000,'2020-12-05 15:06:25.349','PX1');
-insert into BangChamCong values ('CN4','Nguyễn Văn A4','SP4',10,22000,'2020-12-05 15:06:25.350','PX1');
-insert into BangChamCong values ('CN5','Nguyễn Văn A5','SP5',10,21000,'2020-12-05 15:06:25.351','PX1');
-insert into BangChamCong values ('CN6','Nguyễn Văn A6','SP6',10,20000,'2020-12-05 15:06:25.352','PX1');
-insert into BangChamCong values ('CN7','Nguyễn Văn A7','SP7',10,19000,'2020-12-05 15:06:25.353','PX1');
-insert into BangChamCong values ('CN8','Nguyễn Văn A8','SP8',10,18000,'2020-12-05 15:06:25.354','PX1');
-insert into BangChamCong values ('CN9','Nguyễn Văn A9','SP9',10,17000,'2020-12-05 15:06:25.355','PX1');
-insert into BangChamCong values ('CN10','Nguyễn Văn A10','SP10',10,16000,'2020-12-05 15:06:25.356','PX1');
+insert into BangChamCong values ('CN1',N'Nguyễn Văn A','SP1',10,25000,'2020-12-05 15:06:25.347','PX1');
+insert into BangChamCong values ('CN2',N'Nguyễn Văn A2','SP2',10,24000,'2020-12-05 15:06:25.348','PX1');
+insert into BangChamCong values ('CN3',N'Nguyễn Văn A3','SP3',10,23000,'2020-12-05 15:06:25.349','PX1');
+insert into BangChamCong values ('CN4',N'Nguyễn Văn A4','SP4',10,22000,'2020-12-05 15:06:25.350','PX1');
+insert into BangChamCong values ('CN5',N'Nguyễn Văn A5','SP5',10,21000,'2020-12-05 15:06:25.351','PX1');
+insert into BangChamCong values ('CN6',N'Nguyễn Văn A6','SP6',10,20000,'2020-12-05 15:06:25.352','PX1');
+insert into BangChamCong values ('CN7',N'Nguyễn Văn A7','SP7',10,19000,'2020-12-05 15:06:25.353','PX1');
+insert into BangChamCong values ('CN8',N'Nguyễn Văn A8','SP8',10,18000,'2020-12-05 15:06:25.354','PX1');
+insert into BangChamCong values ('CN9',N'Nguyễn Văn A9','SP9',10,17000,'2020-12-05 15:06:25.355','PX1');
+insert into BangChamCong values ('CN10',N'Nguyễn Văn A10','SP10',10,16000,'2020-12-05 15:06:25.356','PX1');
 --DanhSachBangChamCong select sum(soLuong),sum(soLuong*donGia) from BangChamCong where maCongNhan = 'CN4';
 create table DanhSachBangChamCong(
 	maBangChamCong varchar(255) PRIMARY KEY,
@@ -137,7 +137,7 @@ insert into PhongBan values ('PB7',N'Phòng marketing','Lê Văn G','Z0.7',5,7);
 insert into PhongBan values ('PB8',N'Phòng nghiên cứu & Phát triển SP','Lê Văn H','Z0.8',5,8);
 insert into PhongBan values ('PB9',N'Phòng kinh doanh','Lê Văn I','Z0.9',5,9);
 insert into PhongBan values ('PB10',N'Phòng thu mua','Lê Văn J','Z0.10',5,10);
---NhanVienHanhChinht table
+--NhanVienHanhChinht table      select * from nhanvienhanhchinh select * from NhanVienHanhChinh
 create table NhanVienHanhChinh(
 	maNhanVien varchar(255),
 	tenNhanVien NVARCHAR(255),
@@ -159,7 +159,25 @@ insert into NhanVienHanhChinh values ('NV7',N'Lê Văn G',1990,N'Nam','2016-06-0
 insert into NhanVienHanhChinh values ('NV8',N'Lê Văn H',1989,N'Nam','2016-05-02','03381885068',8,'PB8');
 insert into NhanVienHanhChinh values ('NV9',N'Lê Văn I',1988,N'Nữ','2016-04-02','03381885069',9,'PB9');
 insert into NhanVienHanhChinh values ('NV10',N'Lê Văn J',1987,N'Nam','2016-03-02','033818850610',10,'PB10');
---DonXinNghi table    select count(maNhanVien) from DonXinNghi where maNhanVien = 'CN1' and MONTH(ngayNghi) = 12;
+--BangTangCa table select * from BangTangCa select sum(soGioTangCa),sum(28000*soGioTangCa*bonusCa) from BangTangCa where maNhanVien = 'NV1'
+create table BangTangCa(
+	maNhanVien varchar(255),
+	soGioTangCa float,
+	ngayTangCa Date,
+	bonusCa float
+);
+insert into BangTangCa values ('NV1','5','2021-12-03',1.5);
+insert into BangTangCa values ('NV1','8','2021-12-13',3);
+insert into BangTangCa values ('NV2','5','2021-12-04',1.5);
+insert into BangTangCa values ('NV3','5','2021-12-05',1.5);
+insert into BangTangCa values ('NV4','5','2018-12-06',2);
+insert into BangTangCa values ('NV5','5','2018-12-07',3);
+insert into BangTangCa values ('NV6','5','2018-12-08',1.5);
+insert into BangTangCa values ('NV7','5','2018-12-09',1.5);
+insert into BangTangCa values ('NV8','5','2018-12-10',2);
+insert into BangTangCa values ('NV9','5','2018-12-11',1.5);
+insert into BangTangCa values ('NV10','5','2018-12-12',1.5);
+--DonXinNghi table   select count(maNhanVien) from DonXinNghi where maNhanVien = 'NV1' and MONTH(ngayNghi) = 12;
 create table DonXinNghi(
 	maDonNghi varchar(255) PRIMARY KEY,
 	maNhanVien varchar(255),

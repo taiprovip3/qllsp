@@ -32,7 +32,7 @@ public class testDatabase {
             String query = "select * from phanxuong";
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()){
-                System.out.println(""+rs.getInt(1));
+                System.out.println(rs.getInt(1));
             }
         } catch (SQLException ex) {
             Logger.getLogger(testDatabase.class.getName()).log(Level.SEVERE, null, ex);
