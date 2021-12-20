@@ -86,6 +86,7 @@ public class TrangChu extends JFrame {
 	 * Create the frame.
 	 */
 	public TrangChu(final String un) {
+		setTitle("SalaryForm > menu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 852, 432);
 		contentPane = new JPanel();
@@ -94,7 +95,7 @@ public class TrangChu extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\note.png"));
+		btnNewButton.setIcon(new ImageIcon("E:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\note.png"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				QuanLyBangChamCong.main(un);
@@ -117,7 +118,7 @@ public class TrangChu extends JFrame {
 				QuanLyTinhLuong.main(un);
 			}
 		});
-		btnNewButton_1.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\calculator.png"));
+		btnNewButton_1.setIcon(new ImageIcon("E:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\calculator.png"));
 		btnNewButton_1.setBounds(121, 0, 111, 75);
 		contentPane.add(btnNewButton_1);
 		
@@ -128,7 +129,7 @@ public class TrangChu extends JFrame {
 		contentPane.add(lblTinhLuong);
 		
 		JButton btnNewButton_2 = new JButton("");
-		btnNewButton_2.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\analytics.png"));
+		btnNewButton_2.setIcon(new ImageIcon("E:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\analytics.png"));
 		btnNewButton_2.setBounds(242, 0, 111, 75);
 		contentPane.add(btnNewButton_2);
 		
@@ -153,7 +154,7 @@ public class TrangChu extends JFrame {
 				}
 			}
 		});
-		btnNewButton_3.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\user.png"));
+		btnNewButton_3.setIcon(new ImageIcon("E:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\user.png"));
 		btnNewButton_3.setBounds(725, 0, 111, 75);
 		contentPane.add(btnNewButton_3);
 		
@@ -176,7 +177,7 @@ public class TrangChu extends JFrame {
 				}
 			}
 		});
-		btnNewButton_4.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\settings.png"));
+		btnNewButton_4.setIcon(new ImageIcon("E:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\setting.png"));
 		btnNewButton_4.setBounds(604, 0, 111, 75);
 		contentPane.add(btnNewButton_4);
 		
@@ -243,7 +244,7 @@ public class TrangChu extends JFrame {
 		JSeparator separator = new JSeparator();
 		separator.setForeground(new Color(0, 0, 0));
 		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setBounds(450, 137, 20, 256);
+		separator.setBounds(450, 137, 20, 193);
 		contentPane.add(separator);
 		
 		JLabel lblNewLabel_1 = new JLabel("SALARYFORM");
@@ -332,7 +333,7 @@ public class TrangChu extends JFrame {
 		pTime = new JPanel();
 		pTime.setLayout(null);
 		pTime.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Th\u1EDDi gian:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(50, 205, 50)));
-		pTime.setBounds(328, 330, 112, 63);
+		pTime.setBounds(396, 330, 112, 63);
 		contentPane.add(pTime);
 		
 		JLabel lblTime = new JLabel("New label");
@@ -354,7 +355,7 @@ public class TrangChu extends JFrame {
 				QuanLyDonNghi.main(un);
 			}
 		});
-		btnNewButton_2_1.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\appointment.png"));
+		btnNewButton_2_1.setIcon(new ImageIcon("E:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\appointment.png"));
 		btnNewButton_2_1.setBounds(363, 0, 111, 75);
 		contentPane.add(btnNewButton_2_1);
 		
@@ -458,6 +459,7 @@ public class TrangChu extends JFrame {
 		contentPane.add(btnNgonNgu);
 		
 		JButton btnNewButton_2_1_1 = new JButton("");
+		btnNewButton_2_1_1.setIcon(new ImageIcon("E:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\department.png"));
 		btnNewButton_2_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();

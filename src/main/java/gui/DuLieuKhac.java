@@ -14,9 +14,13 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
+
+import util.GetLocalTime;
+
 import javax.swing.border.EtchedBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class DuLieuKhac extends JFrame {
 
@@ -51,6 +55,7 @@ public class DuLieuKhac extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnNewButton = new JButton("");
+		btnNewButton.setIcon(new ImageIcon("E:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\danhsachPB.png"));
 		btnNewButton.setBounds(10, 37, 135, 81);
 		contentPane.add(btnNewButton);
 		
@@ -72,6 +77,7 @@ public class DuLieuKhac extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.setIcon(new ImageIcon("E:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\danhsachPX.png"));
 		btnNewButton_1.setBounds(155, 37, 135, 81);
 		contentPane.add(btnNewButton_1);
 		
@@ -82,6 +88,7 @@ public class DuLieuKhac extends JFrame {
 		contentPane.add(lblNewLabel_1_1);
 		
 		JButton btnNewButton_1_1 = new JButton("");
+		btnNewButton_1_1.setIcon(new ImageIcon("E:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\danhsachHD.png"));
 		btnNewButton_1_1.setBounds(300, 37, 135, 81);
 		contentPane.add(btnNewButton_1_1);
 		
@@ -92,6 +99,7 @@ public class DuLieuKhac extends JFrame {
 		contentPane.add(lblNewLabel_1_1_1);
 		
 		JButton btnNewButton_1_2 = new JButton("");
+		btnNewButton_1_2.setIcon(new ImageIcon("E:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\danhsachSP.png"));
 		btnNewButton_1_2.setBounds(445, 37, 135, 81);
 		contentPane.add(btnNewButton_1_2);
 		
@@ -102,6 +110,7 @@ public class DuLieuKhac extends JFrame {
 		contentPane.add(lblNewLabel_1_1_2);
 		
 		JButton btnNewButton_1_3 = new JButton("");
+		btnNewButton_1_3.setIcon(new ImageIcon("E:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\danhsachNV.png"));
 		btnNewButton_1_3.setBounds(10, 152, 135, 81);
 		contentPane.add(btnNewButton_1_3);
 		
@@ -112,6 +121,7 @@ public class DuLieuKhac extends JFrame {
 		contentPane.add(lblNewLabel_1_1_3);
 		
 		JButton btnNewButton_1_3_1 = new JButton("");
+		btnNewButton_1_3_1.setIcon(new ImageIcon("E:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\danhsachCN.png"));
 		btnNewButton_1_3_1.setBounds(155, 155, 135, 81);
 		contentPane.add(btnNewButton_1_3_1);
 		
@@ -138,16 +148,21 @@ public class DuLieuKhac extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setBounds(6, 16, 85, 17);
-		panel_1.add(lblNewLabel_2);
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		JLabel lblTime = new JLabel("New label");
+		lblTime.setBounds(6, 16, 85, 17);
+		panel_1.add(lblTime);
+		lblTime.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTime.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		
-		JLabel lblNewLabel_2_1 = new JLabel("New label");
-		lblNewLabel_2_1.setBounds(6, 32, 85, 17);
-		panel_1.add(lblNewLabel_2_1);
-		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2_1.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		JLabel lblDate = new JLabel("New label");
+		lblDate.setBounds(6, 32, 85, 17);
+		panel_1.add(lblDate);
+		lblDate.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDate.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		
+		//Code tay
+		GetLocalTime getLocalTime = new GetLocalTime(lblDate, lblTime);
+		getLocalTime.showTime();
+		getLocalTime.showDate();
 	}
 }

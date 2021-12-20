@@ -60,7 +60,7 @@ public class QuanLyBangChamCong extends JFrame {
 			}
 		});
 		btnNewButton.setBackground(new Color(127, 255, 212));
-		btnNewButton.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\qlbcc_notelist.png"));
+		btnNewButton.setIcon(new ImageIcon("E:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\qlbcc_notelist.png"));
 		btnNewButton.setBounds(47, 11, 131, 96);
 		contentPane.add(btnNewButton);
 		
@@ -79,7 +79,7 @@ public class QuanLyBangChamCong extends JFrame {
 			}
 		});
 		btnNewButton_1.setBackground(new Color(127, 255, 212));
-		btnNewButton_1.setIcon(new ImageIcon("F:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\qlbcc_detail.png"));
+		btnNewButton_1.setIcon(new ImageIcon("E:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\qlbcc_detail.png"));
 		btnNewButton_1.setBounds(335, 11, 131, 96);
 		contentPane.add(btnNewButton_1);
 		
