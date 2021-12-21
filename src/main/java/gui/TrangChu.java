@@ -129,6 +129,12 @@ public class TrangChu extends JFrame {
 		contentPane.add(lblTinhLuong);
 		
 		JButton btnNewButton_2 = new JButton("");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ThongKe.main(un);
+			}
+		});
 		btnNewButton_2.setIcon(new ImageIcon("E:\\Hoc ki 3\\Java Phan Tan\\Project-Ptud\\qllsp\\n11_qllsp\\data\\icon\\analytics.png"));
 		btnNewButton_2.setBounds(242, 0, 111, 75);
 		contentPane.add(btnNewButton_2);
